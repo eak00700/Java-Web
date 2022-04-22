@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>link 가상클래스</title>
+		
+		<style>
+			a{  text-decoration:none;
+				color:gray;}
+				
+			/*hover : 마우스를 올렷을때 나타나는 가상클래스 */	
+			a:hover{ color:orange;
+					 text-decoration:underline;}
+			/*active : 마우스 클릭시 적용되는 가상클래스 */
+			a:active{ color: red;}
+			
+			/*hover 와 active를 동시에 사용하는경우
+			  반드시 hover속성을 active속성보다 위에 정의해줘야 한다.*/
+			
+		</style>
+	</head>
+	
+	<body>
+		<a href="#">메뉴1</a><br>
+		<a href="#">메뉴2</a><br>
+		<a href="#">메뉴3</a><br>
+		<a href="#">메뉴4</a><br>
+		
+		
+	</body>
+</html>
