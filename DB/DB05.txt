@@ -1,0 +1,89 @@
+--DB의 자료형
+1) 문자형( VARCHAR2 ) : 4000byte까지 입력 지원
+2) 문자형( CLOB(Character Large Object) ) : 4GB까지 입력 지원
+3) 정수, 실수( NUMBER )
+4) 날짜( DATE ) 
+
+----------------------------------------------------
+
+10.테이블 생성(Create)
+CREATE TABLE TT(
+	id VARCHAR2(20) primary key, --기본키
+	pwd VARCHAR2(20) not null, 
+	name VARCHAR2(50) not null,
+	email VARCHAR2(50) unique,
+	phone VARCHAR2( 20 ) unique
+);
+
+10-1. 테이블에 컬럼 추가(ADD)
+ALTER TABLE TT
+ADD reg_date DATE;
+
+ALTER TABLE TT
+ADD age NUMBER(3);
+
+ALTER TABLE TT
+ADD tall NUMBER(3,1);
+
+10-2. 컬럼에 대한 수정(MODIFY)
+ALTER TABLE TT
+MODIFY email VARCHAR2(100);
+
+10-3. 컬럼 삭제(DROP)
+ALTER TABLE TT
+DROP COLUMN phone;
+
+10-4. 테이블 삭제(DROP)
+DROP TABLE TT;
+
+--------------------------------------------
+
+Create Table memo(
+	idx NUMBER(5) primary key,
+	title VARCHAR2(100) not null,
+	content CLOB not null,
+	pwd VARCHAR2(20) not null,
+	writer VARCHAR2(50),
+	ip VARCHAR2(20),
+	writer_date DATE
+);
+
+11. 자원추가( INSERT )
+INSERT INTO memo
+VALUES ( 1,'제목','안녕하세요','1234','junsung','12.292.2892.8080',sysdate );
+
+INSERT INTO memo
+VALUES ( 2,'제목2','안녕하세요2','1234','junsung2','12.292.2892.8080',sysdate );
+
+commit; --내용을 물리적으로 DB에 적용
+
+12.자원수정(UPDATE)
+UPDATE memo
+SET title='안녕제목',writer='박길동'
+WHERE idx=1;
+
+commit;
+
+13.자원삭제(DELETE)
+DELETE  FROM memo
+WHERE idx=2;
+
+commit;
+-------------------------------------------------------------
+14.시퀀스(sequence) : 테이블에 값을 추가할 때 
+자동으로 순차적인 정수값이 들어가도록 설정해주는 객체
+
+Create Sequence memo_seq;
+Start with 1 -- 1부터 카운팅
+INCREMENT BY 1 --1씩 증가
+CACHE 20 --미리 20개의 index공간을 확보
+-- NOCACHE -- 1개의 index공간만 확보
+
+--memo_seq를 사용하여 memo테이블에 값을 추가
+INSERT INTO memo
+VALUES( memo_seq.nextVal,'제목','안녕하세요','1111','홍길동','129.1.1.1',sysdate );
+
+INSERT INTO memo
+VALUES( memo_seq.nextVal,'제목2','안녕하세요2','1111','홍길동2','129.1.1.1',sysdate );
+
+commit;

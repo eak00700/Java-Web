@@ -1,0 +1,144 @@
+5. 그룹함수
+ -- 여러줄의 행이나 테이블 전체에 대한 조회를
+     하나의 결과물로 가져오는 함수
+
+1) AVG() : 평군값을 구하는 함수
+2) COUNT() : 행의 갯수를 구하는 함수
+3) MAX() : 최대값을 구하는 함수
+4) MIN() : 최소값을 구하는 함수
+5) SUM() : 총 합을 구하는 함수
+
+** 그룹함수와 일반 컬럼은 함께 사용할 수 없다
+SELECT first_name, count(*) FROM employees;
+
+예) 사원테이블의 전체 사원수를 조회
+
+SELECT COUNT(*)
+FROM employees;
+
+예) 보너스를 받고 있는 사원수를 조회
+
+SELECT COUNT(commission_pct)
+FROM employees;
+
+문) 사원테이블에서 직종이 SA_REP인 사원들의 급여의 평균, 최고급여,최소급여를 출력하시오
+SELECT AVG(salary),MAX(salary),MIN(salary)
+FROM employees
+WHERE job_id = 'SA_REP';
+
+
+예) 부서의 갯수 출력
+*DISTINCT : 중복된것을 제거
+
+SELECT count(DISTINCT department_id)
+FROM employees;
+
+문) 부서번호가 80번인 부서의 사원들의 급여의 평균을 출력
+SELECT trunc(AVG(salary),2) avg
+FROM employees
+WHERE department_id=80;
+
+-------------------------------------------------------
+
+6. 그룹화(GROUP BY)
+ --특정테이블에서 소그룹을 만들어 결과를 분산시켜 얻고자 할때 사용
+
+예) 각 부서별 급여의 평균과 총 합을 출력
+SELECT department_id id, COUNT(*) count,round(AVG(salary)) avg,sum(salary) sum
+FROM employees
+GROUP BY department_id
+ORDER BY department_id;
+
+예) 부서별, 직종별, 그룹을 나눠서  인원수를 출력.
+단 부서번호가 낮은순으로 정렬하시오
+SELECT department_id,job_id,COUNT(*)
+FROM employees
+GROUP BY department_id, job_id;
+ORDER BY department_id, job_id;
+
+문) 각 직종별 인원수를 출력
+SELECT job_id,count(*)
+FROM employees
+GROUP BY job_id;
+
+문)각 직종별 급여의 합을 출력
+SELECT job_id,sum(salary)
+FROM employees
+GROUP BY job_id;
+
+문) 부서별로 가장 높은 급여를 조회하시오
+SELECT department_id,MAX(salary)
+FROM employees
+GROUP BY job_id;
+
+문) 부서별 급여의 합계를 내림차순으로 조회
+SELECT department_id,sum(salary)
+FROM employees
+GROUP BY job_id
+ORDER BY sum(salary) DESC;
+
+-------------------------------------------------------------------
+
+7. HAVING절 : 그룹함수에 대한 조건처리가 필요할 때 사용하는 Query
+
+예) 각 부서별 급여의 최대값, 인원수를 출력하자
+단, 급여의 최대값이 8000이상인 부서만 출력하자
+SELECT department_id,MAX(salary),COUNT(*)
+FROM employees
+GROUP BY department_id
+HAVING MAX(salary) >= 8000;
+
+
+문) 부서별 인원수가 20명 이상인 부서의 정보를
+부서번호, 급여의 합, 인원수 순으로 출력하시오
+
+SELECT department_id,sum(salary),COUNT(*)
+FROM employees
+GROUP BY department_id
+HAVING COUNT(*) >= 20;
+
+문) 부서번호, 직종, 인원수를 출력하되
+직종이 'MAN'으로 끝나는 직종만 출력하시오
+
+SELECT department_id, job_id, COUNT(*)
+FROM employees
+WHERE job_id LIKE '%MAN'
+GROUP BY department_id, job_id
+
+문) 각 부서별 평균급여를 소수점 한자리까지 버림으로 출력
+단, 평균급여가 10000 미만인 그룹만 조회해야 하며, 부서번호가 50이하인 부서만 출력하시오
+
+SELECT department_id,trunc(AVG(salary), 1 )
+FROM employees
+WHERE department_id <=50
+GROUP BY department_id
+HAVING AVG(salary) < 10000;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

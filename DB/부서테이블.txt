@@ -1,0 +1,2 @@
+CREATE TABLE DEPT(
+	deptno NUMBER(3) primary key

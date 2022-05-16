@@ -1,0 +1,11 @@
+employee_id: 사번
+first_name : 이름
+last_name : 성
+email : 이메일
+phone_number : 전화번호
+hire_date : 입사일
+job_id : 직종
+salary : 급여
+commission_pct : 보너스
+manager_id : 상사의 사번
+department_id : 부서번호
