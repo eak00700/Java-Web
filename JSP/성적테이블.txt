@@ -1,0 +1,8 @@
+성적테이블
+create table sungtb(
+	no NUMBER(3) primary key, 
+	name VARCHAR2(50) not null, 
+ 	kor NUMBER(3) not null, 
+	eng NUMBER(3) not null, 
+	mat NUMBER(3) not null
+);
