@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd">
+	
+	<!-- 스프링에서 객체를 생성해주는 영역 -->
+	<!-- PersonVO p1 = new PersonVO(); -->
+	<bean id="p1" class="vo.PersonVO">
+		<!-- p1.setName("일길동입니다"); -->
+		<property name="name" value="일길동 입니다."/>
+		<property name="age" value="20"/>
+		<property name="tel" value="010-2222-2222"/>
+		<!-- 이같은 형태를 setter injection -->
+	</bean>
+	
+	<bean id="p2" class="vo.PersonVO">
+		<!-- PersonVO클래스의 생성자 파라미터의 순서와 동일하게 값을 추가해야 한다. -->
+		<constructor-arg value="박길동"/>
+		<constructor-arg value="010-3333-3333"/>
+		<constructor-arg value="33"/>
+		<!-- 이같은 형태를 constructor injection이라고 한다. 생성자에 값을 바로 주입 -->
+		
+	</bean>
+</beans>

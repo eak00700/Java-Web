@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd">
+	
+	<!-- BoardVOImpl dao = new BoardDAOImpl() -->
+	<bean id="dao" class="dao.BoardDAOImpl"></bean>
+		
+	<!-- BoardServiceImpl service = new BoardServiceImpl( dao ) -->
+	<bean id="serviceBean" class="service.BoardServiceImpl">
+		<constructor-arg ref="dao"/>
+		<!-- ref를 통해 다른 bean객체를 참조하는 형태를  Dependency injection(의존성 주입)이라고 한다. -->
+	</bean>
+</beans>
